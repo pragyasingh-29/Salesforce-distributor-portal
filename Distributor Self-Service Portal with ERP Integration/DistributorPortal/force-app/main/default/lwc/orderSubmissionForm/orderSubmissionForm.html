@@ -1,0 +1,92 @@
+<template>
+    <lightning-card title="Submit New Order" icon-name="standard:orders">
+        <div class="slds-p-around_medium">
+
+            <!-- Product Selection -->
+            <lightning-combobox
+                name="productName"
+                label="Product Name"
+                placeholder="Select a Product"
+                value={formData.productName}
+                options={productOptions}
+                onchange={handleProductChange}
+                required>
+            </lightning-combobox>
+
+            <!-- Unit Price - Read Only -->
+            <lightning-input
+                type="number"
+                name="unitPrice"
+                label="Unit Price (₹)"
+                value={formData.unitPrice}
+                readonly>
+            </lightning-input>
+
+            <!-- Quantity -->
+            <lightning-input
+                type="number"
+                name="quantity"
+                label="Quantity"
+                value={formData.quantity}
+                onchange={handleInputChange}
+                min="1"
+                required>
+            </lightning-input>
+
+            <!-- Total Amount - Read Only -->
+            <lightning-input
+                type="number"
+                name="totalAmount"
+                label="Total Amount (₹)"
+                value={formData.totalAmount}
+                readonly>
+            </lightning-input>
+
+            <!-- Description -->
+            <lightning-textarea
+                name="description"
+                label="Description"
+                placeholder="Describe your order requirement"
+                value={formData.description}
+                onchange={handleInputChange}
+                required>
+            </lightning-textarea>
+
+            <!-- Requested Delivery Date -->
+            <lightning-input
+                type="date"
+                name="requestedDeliveryDate"
+                label="Requested Delivery Date"
+                value={formData.requestedDeliveryDate}
+                onchange={handleInputChange}
+                required>
+            </lightning-input>
+
+            <!-- Error Message -->
+            <template if:true={errorMessage}>
+                <div class="slds-text-color_error slds-m-top_small">
+                    {errorMessage}
+                </div>
+            </template>
+
+            <!-- Submit Button -->
+            <div class="slds-m-top_medium">
+                <lightning-button
+                    variant="brand"
+                    label="Submit Order"
+                    onclick={handleSubmit}
+                    disabled={isLoading}>
+                </lightning-button>
+
+                <!-- Loading Spinner -->
+                <template if:true={isLoading}>
+                    <lightning-spinner
+                        alternative-text="Submitting..."
+                        size="small">
+                    </lightning-spinner>
+                </template>
+            </div>
+
+        </div>
+    </lightning-card>
+</template>
